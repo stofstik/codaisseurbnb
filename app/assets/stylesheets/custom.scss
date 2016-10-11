@@ -15,3 +15,16 @@ a.navbar-brand{
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
     background: #81E877;
 }
+
+.panel.panel-primary {
+    margin: 50px;
+}
+
+.themes {
+    margin: 10px 0;
+}
+
+.panel-footer {
+    display: flex;
+    justify-content: flex-end;
+}
