@@ -28,7 +28,10 @@
     </ul>
 
   </div>
-
+  <h4>Themes</h4>
+  <% @themes.each do |theme| %>
+    <span class="label label-success"><%= theme.name %></span>
+  <% end %>
 </div>
 
 <%= link_to "Back", rooms_path, class: "btn btn-default" %>

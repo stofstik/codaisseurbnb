@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :themes
   get 'pages/home'
 
   devise_for :users
