@@ -1,6 +1,17 @@
 body {
-    background: #FEFF8E;
+    background: #FEFFDC;
 }
-.navbar-header {
+
+a.navbar-brand{
+    color: #559C50;
+}
+.navbar {
     background: #76BDE8;
+}
+.navbar-default .navbar-toggle {
+    border-color: #559C50;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background: #81E877;
 }
