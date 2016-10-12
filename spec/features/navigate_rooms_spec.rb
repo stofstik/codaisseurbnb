@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'pp'
 
 describe "Navigating rooms" do
   before { login_as user }
