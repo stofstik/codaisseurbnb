@@ -22,6 +22,14 @@ RSpec.describe Profile, type: :model do
       end
     end
 
+    # Is the following correct? Seems a bit unnecessary
+    context "check one to one profile user" do
+      let(:user) { create :user, profile: profile }
+      let!(:profile) { create :profile }
+      it "should have a relationship" do
+        expect(user.profile).to eq(profile)
+      end
+    end
 
   end
 end
