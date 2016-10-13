@@ -16,8 +16,22 @@ a.navbar-brand{
     background: #81E877;
 }
 
+.panel {
+    border-color: #76BDE8;
+}
+
+.panel-primary > .panel-heading {
+    border-color: #76BDE8;
+    background: #76BDE8;
+}
+
 .panel.panel-primary {
     margin: 50px;
+}
+
+.btn {
+    border-color: #76BDE8;
+    background: #76BDE8;
 }
 
 .themes {
