@@ -13,6 +13,8 @@ class Room < ApplicationRecord
   validates :listing_name, presence: true, length: {maximum: 50}
   validates :description, presence: true, length: {maximum: 500}
   validates :address, presence: true
+  # TODO
+  validates :available?
 
   def bargain?
 	price < 30
@@ -22,9 +24,11 @@ class Room < ApplicationRecord
     order(:price)
   end
 
+  # TODO
   def available?(checkin, checkout)
     bookings.each do |booking|
       if (booking.starts_at <= checkout) && (booking.ends_at >= checkin)
+        errors.add(:expiration_date, "can't be in the past")
         return false
       end
     end
