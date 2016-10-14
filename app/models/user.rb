@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :rooms, dependent: :destroy
   has_one :profile, dependent: :destroy
+  has_many :bookings, dependent: :destroy
+  has_many :booked_rooms, through: :bookings, source: :room
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
