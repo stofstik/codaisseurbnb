@@ -3,6 +3,17 @@
 
   <div class="panel-body">
 
+    <!-- Booking Form -->
+    <% if current_user != @room.user %>
+      <div class="panel panel-primary">
+        <div class="panel-heading">Book this room</div>
+
+        <div class="panel-body">
+          <%= render 'bookings/form' %>
+        </div>
+      </div>
+    <% end %>
+
     <p>Address: <%= @room.address %></p>
     <p>Host: <%= @room.user.email %></p>
 
