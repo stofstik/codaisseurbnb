@@ -14,7 +14,10 @@ class Room < ApplicationRecord
   validates :description, presence: true, length: {maximum: 500}
   validates :address, presence: true
   # TODO
-  validates :available?
+  # validates :available?
+
+  scope :single_bedroom, -> { where(bedroom_count: 1) }
+  scope :for_couples, -> { single_bedroom.where(accommodate: 2) }
 
   def bargain?
 	price < 30
@@ -22,6 +25,15 @@ class Room < ApplicationRecord
 
   def self.order_by_price
     order(:price)
+  end
+
+  # Pluck returns the fields received from the previous query
+  def self.booked_during arrival, departure
+    Booking.during(arrival, departure).pluck(:room_id)
+  end
+
+  def self.available_during arrival, departure
+    where.not(id: booked_during(arrival, departure))
   end
 
   # TODO
@@ -35,5 +47,6 @@ class Room < ApplicationRecord
 
     true
   end
+
 
 end

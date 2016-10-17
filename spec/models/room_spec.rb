@@ -2,58 +2,24 @@ require 'rails_helper'
 
 RSpec.describe Room, type: :model do
 
-  describe "#available?" do
-    # A partially overlaps B
-    # A surrounds B
-    # B surrounds A
-    # A occurs entirely after B
-    # B occurs entirely after A
+  describe "available?" do
 
     let(:host_user) { create :user, email: "host@user.com" }
     let(:guest_user) { create :user, email: "guest@user.com" }
 
     let(:room) { create :room, price: 20, user: host_user }
+    let(:room_without_booking) { create :room, price: 20, user: host_user }
 
     let!(:existent_booking) { create :booking, room: room, starts_at: 2.days.from_now, ends_at: 6.days.from_now, user: guest_user }
 
-    context "A partially overlaps B" do
-      subject { room.available?(4.days.from_now, 10.days.from_now) }
-
-      it "returns false" do
-        expect(subject).to be false
-      end
+    it "should have a method called available_during" do
+      expect(Room.respond_to?('available_during')).to be true
     end
 
-    context "A surrounds B" do
-      subject { room.available?(1.days.from_now, 7.days.from_now) }
-
-      it "returns false" do
-        expect(subject).to be false
-      end
-    end
-
-    context "B surrounds A" do
-      subject { room.available?(3.days.from_now, 5.days.from_now) }
-
-      it "returns false" do
-        expect(subject).to be false
-      end
-    end
-
-    context "A occurs entirely after B" do
-      subject { room.available?(7.days.from_now, 10.days.from_now) }
-
-      it "returns true" do
-        expect(subject).to be true
-      end
-    end
-
-    context "B occurs entirely after A" do
-      subject { room.available?(0.days.from_now, 1.days.from_now) }
-
-      it "returns true" do
-        expect(subject).to be true
-      end
+    it "should not include a room with a booking" do
+      # Booking.available_during returns all rooms without a booking
+      expect(Room.available_during(2.days.from_now, 6.days.from_now)).not_to include(room)
+      expect(Room.available_during(2.days.from_now, 6.days.from_now)).to include(room_without_booking)
     end
 
   end

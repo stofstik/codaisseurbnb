@@ -30,4 +30,23 @@ RSpec.describe User, type: :model do
 	end
   end
 
+  describe "Signs in" do
+
+    let(:old_user) { create :user, email: "test@email.com", last_sign_in_at: Time.now - 4.months }
+    let(:active_user) { create :user, email: "test@email.com", last_sign_in_at: Time.now - 2.months }
+
+    # Check for a certain method using 'respond_to?'
+    it "has a method active_users" do
+      expect(User.respond_to?('active_users')).to be true
+    end
+
+    it "expects a user who has not signed in for 4 months to not be active" do
+      expect(User.active_users).not_to include(old_user)
+    end
+
+    it "expects a user who has not signed in for 2 months to be active" do
+      expect(User.active_users).to include(active_user)
+    end
+  end
+
 end
